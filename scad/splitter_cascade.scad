@@ -10,57 +10,58 @@
 //       | assembly | exploded | side_view
 // Print: cup ×4, riffle_lower ×2, one each of the rest. Do not print assembly.
 // Units: mm.
+// Build plate: every printable part fits in 256×256×256 mm (designed ≤248).
 
 /* [Part] */
 PART = "assembly"; // ["cup","catch_tray","frame","riffle_upper","riffle_lower","funnel","assembly","exploded","side_view"]
 /* [Orbit preview] */
 ORBIT_DEG = 0;
 
-wall = 2.6;
+wall = 2.4;
 clear = 0.6;
 $fn = 48;
 
-// Catch tray — 2×2 active pans
-tray_w = 300;
-tray_d = 300;
-tray_h = 30;
-tray_t = 2.8;
-tray_floor = 3.0;
+// Catch tray — 2×2 active pans within 256 mm plate
+tray_w = 248;
+tray_d = 248;
+tray_h = 26;
+tray_t = 2.4;
+tray_floor = 2.6;
 
-// Hi-back pans (print 4 — all active); same geometry as 2-way / 4-way kits
-cup_w = 100;
-cup_d = 72;
-cup_h = 50;
-cup_t = 2.0;
-cup_floor = 2.2;
-cup_back = 20;
+// Hi-back pans (print 4 — all active); matches scaled 4-way cups
+cup_w = 78;
+cup_d = 56;
+cup_h = 42;
+cup_t = 1.8;
+cup_floor = 2.0;
+cup_back = 14;
 
 // Shared chute sizing
-chute_w = 7.0;
-vane_t = 2.0;
-end_w = 4.0;
+chute_w = 6.0;
+vane_t = 1.8;
+end_w = 3.5;
 
 // Stage 1 (upper) — classic L/R 2-way
 n1 = 12;
-bank1_d = 60;
-bank1_h = 55;
-hood1 = 40;
+bank1_d = 52;
+bank1_h = 48;
+hood1 = 32;
 
 // Stage 2 (lower) — F/B 2-way; print ×2
 n2 = 8;
-bank2_d = 52;
-bank2_h = 50;
-hood2 = 36;
+bank2_d = 44;
+bank2_h = 44;
+hood2 = 30;
 
 // Funnel (top of stage 1)
-funnel_w = 230;
-funnel_d = 170;
-funnel_rim = 10;
-funnel_t = 2.4;
-funnel_collar = 32;
-funnel_cone = 75;
+funnel_w = 200;
+funnel_d = 145;
+funnel_rim = 8;
+funnel_t = 2.2;
+funnel_collar = 28;
+funnel_cone = 60;
 
-leg = 10;
+leg = 9;
 
 // derived — stage 1
 inner1 = n1 * chute_w + (n1 - 1) * vane_t;
@@ -79,17 +80,17 @@ throat2_d = bank2_d - 6;
 // Lateral offset of each lower bank (under stage-1 L/R outlets)
 lower_x = outer1_w/2 + hood1*0.35;
 
-riffle_z_lower = tray_floor + cup_h + 10;
+riffle_z_lower = tray_floor + cup_h + 8;
 // Drop gap between stage-1 outlets and stage-2 open tops
-stage_gap = 28;
-riffle_z_upper = riffle_z_lower + bank2_h + stage_gap + 18;
+stage_gap = 22;
+riffle_z_upper = riffle_z_lower + bank2_h + stage_gap + 14;
 
 // Four ACTIVE cups under stage-2 F/B outlets
 function nests() = [
-    [-(cup_w/2 + 18), -(cup_d/2 + 30)],  // A1 FRONT-LEFT  ← lower-left front
-    [ (cup_w/2 + 18), -(cup_d/2 + 30)],  // B1 FRONT-RIGHT ← lower-right front
-    [-(cup_w/2 + 18),  (cup_d/2 + 38)],  // A2 REAR-LEFT   ← lower-left rear
-    [ (cup_w/2 + 18),  (cup_d/2 + 38)]   // B2 REAR-RIGHT  ← lower-right rear
+    [-(cup_w/2 + 12), -(cup_d/2 + 22)],  // A1 FRONT-LEFT  ← lower-left front
+    [ (cup_w/2 + 12), -(cup_d/2 + 22)],  // B1 FRONT-RIGHT ← lower-right front
+    [-(cup_w/2 + 12),  (cup_d/2 + 28)],  // A2 REAR-LEFT   ← lower-left rear
+    [ (cup_w/2 + 12),  (cup_d/2 + 28)]   // B2 REAR-RIGHT  ← lower-right rear
 ];
 
 // -----------------------------------------------------------------------------
@@ -118,7 +119,7 @@ module catch_tray() {
         for (i = [0:3]) {
             translate([ns[i][0], ns[i][1], tray_floor-1.3])
                 linear_extrude(1)
-                    text(labels[i], size=7,halign="center", valign="center",
+                    text(labels[i], size=6,halign="center", valign="center",
                          font="Liberation Sans:style=Bold");
         }
     }

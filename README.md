@@ -12,6 +12,8 @@ This repo ships **three complete kits**, each with its own print-ready STLs:
 
 Submit the files from **one** folder to your printer — no re-render needed.
 
+**Build plate:** every printable part is sized for a **256×256×256 mm** volume (largest part ≤248 mm).
+
 ---
 
 ## 2-way (left / right)
@@ -49,7 +51,7 @@ Only **A1** (left) and **B1** (right) sit under the discharges. **A2/B2** are sp
 4. Seat the funnel sleeve into the riffle socket.
 5. Pour dried sediment into the funnel; collect halves in A1 and B1. Swap spare pans to re-split.
 
-Footprint ~260×210 mm, height ~250 mm. Chute width 7 mm (`chute_w` / `n_chutes`).
+Footprint **248×200 mm** (fits 256 mm plate). Chute width 6 mm × 12 chutes.
 
 ---
 
@@ -60,7 +62,7 @@ Footprint ~260×210 mm, height ~250 mm. Chute width 7 mm (`chute_w` / `n_chutes`
         │   LARGE FUNNEL      │
         └─────────┬───────────┘
                   │
-           ╱│╱│╱│╱│╱│╱│╱│╱│     ← 16 vanes, i%4 → four corners
+           ╱│╱│╱│╱│╱│╱│     ← 12 vanes, i%4 → four corners
       FL ↙    FR ↘   RL ↙  RR ↘
        [A1]  [B1]
        [A2]  [B2]              ← all four pans ACTIVE
@@ -76,7 +78,7 @@ One pour splits into **four equal streams**. All four pans sit under corner disc
 | Hi-back pan / cup | **4** | `stl/4way/cup.stl` |
 | Spill catch tray | 1 | `stl/4way/catch_tray.stl` |
 | Open stand / frame | 1 | `stl/4way/frame.stl` |
-| Riffle bank (16 chutes) | 1 | `stl/4way/riffle.stl` |
+| Riffle bank (12 chutes) | 1 | `stl/4way/riffle.stl` |
 | Funnel | 1 | `stl/4way/funnel.stl` |
 
 ### Assemble (4-way)
@@ -87,7 +89,7 @@ One pour splits into **four equal streams**. All four pans sit under corner disc
 4. Seat the funnel sleeve into the riffle socket.
 5. Pour dried sediment; collect quarters in A1–B2. Empty / swap pans to re-split as needed.
 
-Footprint ~300×300 mm. Same 7 mm chute width; **16** chutes (4 per quarter).
+Footprint **248×248 mm** (fits 256 mm plate). Chute width 6 mm × **12** chutes (3 per quarter).
 
 ### How it works (4-way video)
 

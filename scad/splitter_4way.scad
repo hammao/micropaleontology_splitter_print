@@ -9,50 +9,51 @@
 // PART: cup | catch_tray | frame | riffle | funnel | assembly | exploded
 // Print cup ×4 (all active). Do not print assembly/exploded.
 // Units: mm.
+// Build plate: every printable part fits in 256×256×256 mm (designed ≤248).
 
 /* [Part] */
 PART = "assembly"; // ["cup","catch_tray","frame","riffle","funnel","assembly","exploded","side_view"]
 /* [Orbit preview] */
 ORBIT_DEG = 0;
 
-wall = 2.6;
+wall = 2.4;
 clear = 0.6;
 $fn = 48;
 
-// Catch tray — square enough for 2×2 active pans
-tray_w = 300;
-tray_d = 300;
-tray_h = 30;
-tray_t = 2.8;
-tray_floor = 3.0;
+// Catch tray — square 2×2 active pans within 256 mm plate
+tray_w = 248;
+tray_d = 248;
+tray_h = 26;
+tray_t = 2.4;
+tray_floor = 2.6;
 
 // Hi-back pans (print 4 — all active)
-cup_w = 100;
-cup_d = 72;
-cup_h = 50;
-cup_t = 2.0;
-cup_floor = 2.2;
-cup_back = 20;
+cup_w = 78;
+cup_d = 56;
+cup_h = 42;
+cup_t = 1.8;
+cup_floor = 2.0;
+cup_back = 14;
 
 // Jones 4-way riffle bank (multiple of 4 for equal quarters)
-n_chutes = 16;
-chute_w = 7.0;
-vane_t = 2.0;
-bank_d = 60;
-bank_h = 55;
-end_w = 4.0;
-hood_reach = 42;     // corner discharge overhang
+n_chutes = 12;
+chute_w = 6.0;
+vane_t = 1.8;
+bank_d = 48;
+bank_h = 48;
+end_w = 3.5;
+hood_reach = 34;     // corner discharge overhang
 
 // Funnel
-funnel_w = 230;
-funnel_d = 170;
-funnel_rim = 10;
-funnel_t = 2.4;
-funnel_collar = 32;
-funnel_cone = 75;
+funnel_w = 200;
+funnel_d = 145;
+funnel_rim = 8;
+funnel_t = 2.2;
+funnel_collar = 28;
+funnel_cone = 60;
 
 // Frame
-leg = 10;
+leg = 9;
 
 // derived
 inner_w = n_chutes * chute_w + (n_chutes - 1) * vane_t;
@@ -61,14 +62,14 @@ outer_d = bank_d + 2 * wall;
 throat_w = inner_w - 2;
 throat_d = bank_d - 6;
 
-riffle_z = tray_floor + cup_h + 10;
+riffle_z = tray_floor + cup_h + 8;
 
 // Four ACTIVE cups under the four corner outlets (true 4-way).
 function nests() = [
-    [-(cup_w/2 + 18), -(cup_d/2 + 30)],  // A1 FRONT-LEFT
-    [ (cup_w/2 + 18), -(cup_d/2 + 30)],  // B1 FRONT-RIGHT
-    [-(cup_w/2 + 18),  (cup_d/2 + 38)],  // A2 REAR-LEFT
-    [ (cup_w/2 + 18),  (cup_d/2 + 38)]   // B2 REAR-RIGHT
+    [-(cup_w/2 + 12), -(cup_d/2 + 22)],  // A1 FRONT-LEFT
+    [ (cup_w/2 + 12), -(cup_d/2 + 22)],  // B1 FRONT-RIGHT
+    [-(cup_w/2 + 12),  (cup_d/2 + 28)],  // A2 REAR-LEFT
+    [ (cup_w/2 + 12),  (cup_d/2 + 28)]   // B2 REAR-RIGHT
 ];
 
 // -----------------------------------------------------------------------------
@@ -97,7 +98,7 @@ module catch_tray() {
         for (i = [0:3]) {
             translate([ns[i][0], ns[i][1], tray_floor-1.3])
                 linear_extrude(1)
-                    text(labels[i], size=7, halign="center", valign="center",
+                    text(labels[i], size=6,halign="center", valign="center",
                          font="Liberation Sans:style=Bold");
         }
     }

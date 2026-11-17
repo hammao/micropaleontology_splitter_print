@@ -9,50 +9,51 @@
 // PART: cup | catch_tray | frame | riffle | funnel | assembly | exploded
 // Print cup ×4. Do not print assembly/exploded.
 // Units: mm.
+// Build plate: every printable part fits in 256×256×256 mm (designed ≤248).
 
 /* [Part] */
 PART = "assembly"; // ["cup","catch_tray","frame","riffle","funnel","assembly","exploded","side_view"]
 /* [Orbit preview] */
 ORBIT_DEG = 0; // used by walkthrough frame script
 
-wall = 2.6;
+wall = 2.4;
 clear = 0.6;
 $fn = 48;
 
-// Catch tray (close to original 260×210 base)
-tray_w = 260;
-tray_d = 210;
-tray_h = 30;
-tray_t = 2.8;
-tray_floor = 3.0;
+// Catch tray (scaled for 256 mm plate)
+tray_w = 248;
+tray_d = 200;
+tray_h = 26;
+tray_t = 2.4;
+tray_floor = 2.6;
 
 // Hi-back pans (print 4)
-cup_w = 100;
-cup_d = 72;
-cup_h = 50;
-cup_t = 2.0;
-cup_floor = 2.2;
-cup_back = 20;
+cup_w = 90;
+cup_d = 64;
+cup_h = 44;
+cup_t = 1.8;
+cup_floor = 2.0;
+cup_back = 16;
 
 // Jones riffle bank
 n_chutes = 12;       // even
-chute_w = 7.0;
-vane_t = 2.0;
-bank_d = 60;
-bank_h = 55;
-end_w = 4.0;
-hood_reach = 36;     // side discharge overhang
+chute_w = 6.0;
+vane_t = 1.8;
+bank_d = 52;
+bank_h = 48;
+end_w = 3.5;
+hood_reach = 30;     // side discharge overhang
 
 // Funnel
-funnel_w = 230;
-funnel_d = 170;
-funnel_rim = 10;
-funnel_t = 2.4;
-funnel_collar = 32;
-funnel_cone = 75;
+funnel_w = 210;
+funnel_d = 150;
+funnel_rim = 8;
+funnel_t = 2.2;
+funnel_collar = 28;
+funnel_cone = 65;
 
 // Frame
-leg = 10;
+leg = 9;
 
 // derived
 inner_w = n_chutes * chute_w + (n_chutes - 1) * vane_t;
@@ -61,15 +62,15 @@ outer_d = bank_d + 2 * wall;
 throat_w = inner_w - 2;
 throat_d = bank_d - 6;
 
-riffle_z = tray_floor + cup_h + 10;
+riffle_z = tray_floor + cup_h + 8;
 
 // ONLY two cups sit under the L/R outlets (true 2-way).
 // The other two park in a rear STORAGE bay — not under any chute.
 function nests() = [
-    [-(cup_w/2 + 10), -28],  // A1 ACTIVE left  ← receives LEFT stream
-    [ (cup_w/2 + 10), -28],  // B1 ACTIVE right ← receives RIGHT stream
-    [-(cup_w/2 + 10),  85],  // A2 SPARE (storage only)
-    [ (cup_w/2 + 10),  85]   // B2 SPARE (storage only)
+    [-(cup_w/2 + 8), -26],  // A1 ACTIVE left  ← receives LEFT stream
+    [ (cup_w/2 + 8), -26],  // B1 ACTIVE right ← receives RIGHT stream
+    [-(cup_w/2 + 8),  78],  // A2 SPARE (storage only)
+    [ (cup_w/2 + 8),  78]   // B2 SPARE (storage only)
 ];
 
 // -----------------------------------------------------------------------------
@@ -97,31 +98,31 @@ module catch_tray() {
         // Active labels under outlets
         translate([ns[0][0], ns[0][1], tray_floor-1.3])
             linear_extrude(1)
-                text("A1 LEFT", size=7, halign="center", valign="center",
+                text("A1 LEFT", size=6, halign="center", valign="center",
                      font="Liberation Sans:style=Bold");
         translate([ns[1][0], ns[1][1], tray_floor-1.3])
             linear_extrude(1)
-                text("B1 RIGHT", size=7, halign="center", valign="center",
+                text("B1 RIGHT", size=6, halign="center", valign="center",
                      font="Liberation Sans:style=Bold");
         // Spare labels
         translate([ns[2][0], ns[2][1], tray_floor-1.3])
             linear_extrude(1)
-                text("A2 SPARE", size=7, halign="center", valign="center",
+                text("A2 SPARE", size=6, halign="center", valign="center",
                      font="Liberation Sans:style=Bold");
         translate([ns[3][0], ns[3][1], tray_floor-1.3])
             linear_extrude(1)
-                text("B2 SPARE", size=7, halign="center", valign="center",
+                text("B2 SPARE", size=6, halign="center", valign="center",
                      font="Liberation Sans:style=Bold");
     }
     // Divider wall: ACTIVE zone (front) vs STORAGE bay (rear)
     // Makes clear this is NOT a 4-way / 4-compartment splitter.
-    translate([-(tray_w - 2*tray_t - 8)/2, 28, tray_floor])
-        cube([tray_w - 2*tray_t - 8, 3.2, 18]);
+    translate([-(tray_w - 2*tray_t - 8)/2, 24, tray_floor])
+        cube([tray_w - 2*tray_t - 8, 3.0, 16]);
     // Simple block labels (avoid glyph explosion / disconnected bodies)
-    translate([-55, 40, tray_floor])
-        cube([110, 8, 6]);   // spare-bay marker bar
-    translate([-70, -82, tray_floor])
-        cube([140, 8, 6]);   // active-bay marker bar
+    translate([-50, 36, tray_floor])
+        cube([100, 7, 5]);   // spare-bay marker bar
+    translate([-60, -72, tray_floor])
+        cube([120, 7, 5]);   // active-bay marker bar
 }
 
 
